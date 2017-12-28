@@ -77,7 +77,7 @@ export default {
           this.total = { current: balances[0].total, old: last(balances).total };
           this.profit = { current: balances[0].profit, old: last(balances).profit };
 
-          this.isOnline = moment(balances[0].created_at) > moment().subtract(1, 'minutes');
+          this.isOnline = moment(balances[0].created_at) > moment().subtract(1, 'hours').subtract(1, 'minutes');
 
           // Update title <3
           document.title = `Crypto Wallet | ${this.profit.current.toLocaleString('FR', { style: 'currency', currency: 'EUR' })}`;

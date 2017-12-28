@@ -16,10 +16,24 @@
       </b-row>
       <h3 class="mb2 mt3">Wallet details</h3>
       <b-row class="mt2 mb2">
-        <b-col :sm="3" v-for="(balance, symbol) in wallets" :key="symbol">
+        <b-col :sm="3" v-for="(balance, symbol) in wallets" :key="symbol" class="mt1 mb1">
           <div class="grid-content bg-purple">
             <Balance :symbol="symbol" :balance="balance" :oldBalance="lastWallets[symbol]"/>
           </div>
+        </b-col>
+      </b-row>
+      <h3 class="mb2 mt3">Wallet breakdown</h3>
+      <b-row class="mt3 gauge">
+        <b-col :sm="12">
+          <b-progress class="mt-1" :max="total.current" show-value show-progress>
+            <b-progress-bar
+              v-for="(balance, symbol) in wallets" 
+              :key="symbol" 
+              :value="balance" 
+              :variant="variants[symbol]">
+              <strong>{{ symbol }}</strong>
+            </b-progress-bar>
+          </b-progress>
         </b-col>
       </b-row>
       <b-row class="online-footer">
@@ -49,6 +63,7 @@ export default {
       profit: { current: 0, old: 0 },
       evolution: {},
       isOnline: true,
+      variants: { ETH: 'info', XRP: 'warning', LTC: 'primary', TRX: 'dark' },
     };
   },
   methods: {
